@@ -1,0 +1,24 @@
+How will you test the changes?
+
+1. Closely review Kube-bench findings and threat model any implications.
+Revisit the Rancher Benchmark Assessment documentation to think back to the
+threat model to readon through the findings.
+2. Create a plan on how to test the change
+Think through the implications of the change. 
+Often this needs to be closely coordinated with other teams and tested in a non-production environment.
+3. Test the hardening on a non-production or staging cluster. 
+Create a non-production cluster representative of your production. 
+Sometimes problems due to hardening steps do not materialize unless there is a load on the system or traffic.
+We then use a canary testing technique, which we split the production and non-production (dev) deployment.
+4. Deploy the change to the production cluster
+After deploy the changes to the non-prod environment, we closely monitor and conduct a regression test to 
+ensure the stability of the cluster.
+
+How will you ensure the changes don't negatively affect your cluster?
+
+1. Do on seperate development (prod and non-prod cluster)
+Separating development and test activities reduces the risks of inadvertent or unauthorized modifications to the operational system 
+that could compromise the system's integrity or availability.
+2. Conduct a regression test after the deployments are done
+The test is needed to find out whether the updates or changes had caused new defects 
+in the existing functions. This step would ensure the unification of the cluster.
