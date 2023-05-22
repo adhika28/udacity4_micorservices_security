@@ -1,0 +1,21 @@
+1. Incident commander name:
+High CPU Resource Utilization due to Illegal Crypto-Mining Activity
+
+2. Executive Summary of what happened:
+Three pods running three different crypto miners were launched in the production cluster.
+The attacker was able to get control of the cluster and run these containers on the cluster.
+
+3. Summary of what was affected:
+The attacker managed to run crypto miners on our system, which cause massive increase of CPU utilization.
+
+4. Summmry of the impact:
+High CPU resource spike can slow down other containers on the same node, and can even cause Kubernetes core components like kubectl, the control panel, and kube-proxy to become unresponsive.
+
+5. Summary of the remediation steps:
+Evict the cryto-mining pods using command: kubectl --kubeconfig kube_config_cluster.yml delete pod <pod_name> --grace-period=0 --force>
+Verify the CPU metric on Grafana Dashboard.
+
+6. Summary of lessons learned:
+Use admission controllers to allow only certain images to be imported and started within the pods.
+Enhance CPU monitoring dashboard and also the alert.
+Update the priority of Falco rules for the metrics endpoint to the highest level.
